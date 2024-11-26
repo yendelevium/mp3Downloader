@@ -1,0 +1,4 @@
+vendor
+cmd/mp3Downloader/mp3Downloader
+cmd/mp3Downloader/mp3Downloader.exe
+*.mp3

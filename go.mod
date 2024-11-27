@@ -2,7 +2,10 @@ module github.com/yendelevium/mp3Downloader
 
 go 1.23.3
 
-require github.com/gocolly/colly v1.2.0
+require (
+	github.com/gocolly/colly v1.2.0
+	github.com/joho/godotenv v1.5.1
+)
 
 require (
 	github.com/PuerkitoBio/goquery v1.10.0 // indirect

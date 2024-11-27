@@ -6,21 +6,25 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"sync"
 )
 
 // Filenm will be Tracknm-Artistnm.mp3
-func DownloadSong(trackName string, artistName string,mp3URL string, wg *sync.WaitGroup) {
+func DownloadSong(trackName string, artistName string, mp3URL string, downloadLocation string, wg *sync.WaitGroup) {
 	defer wg.Done()
-
 	resp, err := http.Get(mp3URL)
 	if err != nil {
 		log.Fatal("Get Req", err)
 	}
 
-	// TODO: Designated directory to download songs?
-	// TODO: Need to strip track and artist name from '/' as os.Create will think of it as a directory
-	file, err := os.Create(fmt.Sprintf("%s-%s%s", trackName, artistName, ".mp3"))
+	err = os.MkdirAll(downloadLocation, os.ModePerm)
+	if err != nil {
+		log.Fatalf("Error creating directories: %s", err)
+	}
+	path := filepath.Join(downloadLocation, fmt.Sprintf("%s-%s%s", trackName, artistName, ".mp3"))
+	path = filepath.FromSlash(path)
+	file, err := os.Create(path)
 	if err != nil {
 		log.Fatal("File Creation:", err)
 	}
@@ -30,6 +34,12 @@ func DownloadSong(trackName string, artistName string,mp3URL string, wg *sync.Wa
 	if err != nil {
 		log.Fatal("Writing:", err)
 	}
-	log.Println("Downloaded a song")
+
+	err = file.Close()
+	if err != nil {
+		log.Fatal("Closing:", err)
+	}
+
+	log.Printf("Downloaded %s", fmt.Sprintf("%s-%s%s", trackName, artistName, ".mp3"))
 
 }

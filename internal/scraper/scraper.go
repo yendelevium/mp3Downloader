@@ -2,7 +2,6 @@ package scraper
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 
 	"github.com/gocolly/colly"
@@ -17,7 +16,7 @@ type Data struct {
 	Mp3URL     string
 }
 
-func Scrape(search string) []Data {
+func Scrape(search string) ([]Data, error) {
 	c := colly.NewCollector(
 		colly.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"),
 	)
@@ -42,7 +41,7 @@ func Scrape(search string) []Data {
 	})
 
 	if err := c.Visit(fmt.Sprintf("%s%s%s", protocol, search, domainName)); err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	return scrapedData
+	return scrapedData, nil
 }

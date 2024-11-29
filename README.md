@@ -1,93 +1,138 @@
-# mp3Downloader
-Scrapes the web and downloads the mp3 of your song locally
+---
 
-## Installation
-    
-### Clone the repository
-    git clone https://github.com/yendelevium/mp3Downloader.git
-    cd mp3Downloader
+# MP3 Downloader  
+**A web scraper that downloads MP3 tracks locally.**  
 
-## Optional
-### Create a .env file in the root directory
-#### For Linux/macOS
-    touch .env
+⚠ **Disclaimer:**  
+This project is intended for **educational purposes only**. While it can access copyrighted material, it is not meant for any illegal or unethical use. The creator does not condone or encourage using this tool to download copyrighted material.  
 
-#### For windows
-    type nul > .env
-    (Note that you actually have to type "type")
+---
 
-### Populate the .env file
-#### For windows
-    downloadLocationWindows = "<your download location>"
+## Features  
+- Scrapes the website [hydr0.org](https://hydr0.org/) to locate and download MP3 files.  
+- Supports single and simultaneous downloads using Go routines.  
+- Customizable download location through `.env` configuration.  
 
-#### For unix/linux
-    downloadLocationUnix = "<your download location>"
+---
 
-Add both if you're planning to use WSL and Windows    
-If you don't add the .env files or the download path, the songs will be downloaded by default in the cmd/mp3Downloader directory
+## Installation  
 
-#### Install dependencies 
-    go mod vendor
+### 1. Clone the repository  
+```bash
+git clone https://github.com/yendelevium/mp3Downloader.git
+cd mp3Downloader
+```  
 
-## Working
-The scraper scrapes the website https://hydr0.org/ to download the songs. It loactes the relevent details from the HTML and extracts it. This project is only for educational purposes, and is NOT TO BE USED FOR COMMERCIAL PURPOSES
+### 2. Optional: Set up a `.env` file  
 
-### Change Directory to where the main.go file is located
-#### For Linux/macOS
-    cd mp3Downloader/cmd/mp3Downloader 
+#### Create the `.env` file  
+For Linux/macOS:  
+```bash
+touch .env
+```  
+For Windows:  
+```bash
+type nul > .env
+```  
 
-#### For windows
-    cd mp3Downloader\cmd\mp3Downloader\
+#### Configure the `.env` file  
+- **Windows:**  
+  ```plaintext
+  downloadLocationWindows = "<your download location>"
+  ```  
+- **Unix/Linux:**  
+  ```plaintext
+  downloadLocationUnix = "<your download location>"
+  ```  
+If you're using both WSL and Windows, include both configurations.  
 
-### Build and run the project
-#### For Linux/macOS
-    go build . && ./mp3Downloader
+If no `.env` file is provided, songs will be downloaded to the default path:  
+`cmd/mp3Downloader/`.  
 
-#### For windows
-    go build . ; .\mp3Downloader.exe
+### 3. Install dependencies  
+```bash
+go mod vendor
+```  
 
+---
 
-### Enter the song name/artist name/movie name
-    Enter the name of the song/artist
+## Usage  
 
-The web scraper will then search the website for the specified track.
+### 1. Navigate to the project directory containing `main.go`  
+For Linux/macOS:  
+```bash
+cd mp3Downloader/cmd/mp3Downloader
+```  
+For Windows:  
+```bash
+cd mp3Downloader\cmd\mp3Downloader\
+```  
 
-### Enter the idx corresponding to the track you want to download
-Here's an example. There will be more tracks to choose from when you actually run it
-    Enter the name of the song/artist
-    Beautiful Mistakes
+### 2. Build and run the project  
+For Linux/macOS:  
+```bash
+go build . && ./mp3Downloader
+```  
+For Windows:  
+```bash
+go build . ; .\mp3Downloader.exe
+```  
 
-    0 Track Name: Beautiful Mistakes
-    Artist Name:Franky Perez
+### 3. Search and download songs  
+- Enter the name of the song, artist, or movie.  
+- Select the desired track(s) by entering the corresponding index (`idx`).  
 
-    1 Track Name: Beautiful Mistake
-    Artist Name:Lesh
+#### Example:  
+```plaintext
+Enter the name of the song/artist  
+Beautiful Mistakes  
 
-    2 Track Name: Maroon 5 ft. Megan Thee Stallion (Acoustic Cover) (192 kbps)
-    Artist Name:Beautiful Mistakes
+0 Track Name: Beautiful Mistakes  
+  Artist Name: Franky Perez  
 
-    3 Track Name: Beautiful Mistakes
-    Artist Name:Hard EDM Workout
+1 Track Name: Beautiful Mistake  
+  Artist Name: Lesh  
 
-    4 Track Name: Beautiful Mistakes (Leakim Remix)
-    Artist Name:Maroon 5 feat. Megan Thee Stallion
+2 Track Name: Maroon 5 ft. Megan Thee Stallion (Acoustic Cover) (192 kbps)  
+  Artist Name: Beautiful Mistakes  
 
-    5 Track Name: Beautiful Mistakes ft. Megan Thee Stallion
-    Artist Name:Maroon 5
+3 Track Name: Beautiful Mistakes  
+  Artist Name: Hard EDM Workout  
 
-    Enter the idx of the song you want to download(if multiple, separate by spaces)
+4 Track Name: Beautiful Mistakes (Leakim Remix)  
+  Artist Name: Maroon 5 feat. Megan Thee Stallion  
 
-You can either enter one song, eg:
+5 Track Name: Beautiful Mistakes ft. Megan Thee Stallion  
+  Artist Name: Maroon 5  
 
-    3
+Enter the idx of the song you want to download (if multiple, separate by spaces):  
+```  
 
-And this will download the track corresponding to that idx
+#### Single download:  
+```plaintext
+3
+```  
 
-Or multiple, eg
+#### Simultaneous downloads:  
+```plaintext
+1 2 5
+```  
 
-    1 2 5
+---
 
-And all these songs will be downloaded SIMULTANEOUSLY(by using goroutines)
+## How It Works  
+- The scraper parses the HTML of [hydr0.org](https://hydr0.org/) to identify song information.  
+- You select tracks by their index, and the scraper downloads them to the specified directory.  
 
-# DISCLAIMER
-While this downloader can be used to access copyrighted material, this project is only for educational purposes, and I do not encourage anyone to use it for accessing copyrighted material either.
+---
+
+### Upcoming Updates  
+- Add a user-friendly interface and deploy it as a web application.  
+- Transform it into a feature-rich command-line tool.  
+
+---
+
+## Legal and Ethical Considerations  
+This project is not designed for commercial purposes. Always ensure you have the right to download and use the material before proceeding.  
+
+--- 

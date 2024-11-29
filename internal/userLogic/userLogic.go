@@ -34,7 +34,7 @@ func UserInput() (string, error) {
 }
 
 func UserDownloadChoice(downloadLocation string, scrapedData []scraper.Data) error {
-	// Menu for user to select the songs to be downloaded
+	// Menu for user to select the songs to be downloaded returned by the scraper
 	input := bufio.NewReader(os.Stdin)
 	for key, elem := range scrapedData {
 		fmt.Printf("\n%d Track Name: %s\nArtist Name:%s\n", key, elem.TrackName, elem.ArtistName)
@@ -57,7 +57,7 @@ func UserDownloadChoice(downloadLocation string, scrapedData []scraper.Data) err
 			log.Println(err)
 			continue
 		}
-		if songIdx < int64(len(scrapedData)) && songIdx > 0 {
+		if songIdx < int64(len(scrapedData)) && songIdx >= 0 {
 			trackName := scrapedData[songIdx].TrackName
 			artistName := scrapedData[songIdx].ArtistName
 			mp3URL := scrapedData[songIdx].Mp3URL
